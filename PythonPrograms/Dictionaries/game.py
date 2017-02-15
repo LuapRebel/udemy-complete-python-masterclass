@@ -1,58 +1,48 @@
-locations = {0: "You are sitting in front of a computer learning Python",
-             1: "You have reached the End of the road",
-             2: "You have climbed to the Top of hill",
-             3: "You are Inside a building, a very large building",
-             4: "You are in a Valley beside stream",
-             5: "You are in the Forest"}
-
-exits = {0: {"Q": 0},
-         1: {"W": 2, "E": 3, "N": 5, "S": 4, "Q": 0},
-         2: {"N": 5, "Q": 0},
-         3: {"W": 1, "Q": 0},
-         4: {"N": 1, "W": 2, "Q": 0},
-         5: {"W": 2, "S": 1, "Q": 0}}
-
-named_exits = {1: {"2": 2, "3": 3, "4": 4, "5": 5},
-               2: {"5": 5},
-               3: {"1": 1},
-               4: {"2": 2, "1": 1},
-               5: {"1": 1, "2": 2}}
-
-vocabulary = { "QUIT": "Q",
-               "WEST": "W",
-               "EAST": "E",
-               "NORTH": "N",
-               "SOUTH": "S",
-               "ROAD": "1",
-               "HILL": "2",
-               "BUILDING": "3",
-               "VALLEY": "4",
-               "FOREST": "5"}
-
-# print(locations[0].split())
-# print(locations[3].split(","))
-# print(' '.join(locations[0].split()))
+locations = {0: {"desc": "You are sitting in front of a computer learning Python",
+                 "exits": {},
+                 "named_exits": {}},
+             1: {"desc": "You have reached the End of the road",
+                 "exits": {"W": 2, "E": 3, "N": 5, "S": 4, "Q": 0},
+                 "named_exits": {"2": 2, "3": 3, "4": 4, "5": 5}},
+             2: {"desc": "You have climbed to the Top of hill",
+                 "exits": {"N": 5, "Q": 0},
+                 "named_exits": {"5": 5}},
+             3: {"desc": "You are Inside a building, a very large building",
+                 "exits": {"W": 1, "Q": 0},
+                 "named_exits": {"1": 1}},
+             4: {"desc": "You are in a Valley beside stream",
+                 "exits": {"N": 1, "W": 2, "Q": 0},
+                 "named_exits": {"2": 2, "1": 1}},
+             5: {"desc": "You are in the Forest",
+                 "exits": {"W": 2, "S": 1, "Q": 0},
+                 "named_exits": {"1": 1, "2": 2}}
+             }
 
 
+vocabulary = {"QUIT": "Q",
+              "WEST": "W",
+              "EAST": "E",
+              "NORTH": "N",
+              "SOUTH": "S",
+              "ROAD": "1",
+              "HILL": "2",
+              "BUILDING": "3",
+              "VALLEY": "4",
+              "FOREST": "5"}
 loc = 1
 while True:
-    available_exits = ", ".join(exits[loc].keys())
-    print(locations[loc])
+    available_exits = ", ".join(locations[loc]["exits"].keys())
+
+    print(locations[loc]["desc"])
 
     if loc == 0:
         break
     else:
-        all_exits = exits[loc].copy()
-        all_exits.update(named_exits[loc])
+        all_exits = locations[loc]["exits"].copy()
+        all_exits.update(locations[loc]["named_exits"])
 
     direction = input("Available exits are " + available_exits + " ").upper()
     print()
-
-    # if direction in vocabulary.keys():
-    #     direction = vocabulary[direction]
-    #     loc = exits[loc][direction]
-    # elif direction in exits[loc]:
-    #     loc = exits[loc][direction]
 
     if len(direction) > 1:
         words = direction.split()
