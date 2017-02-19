@@ -9,15 +9,16 @@ import calendar
 mainWindow = tkinter.Tk()
 mainWindow.title("Grid Demo")
 mainWindow.geometry('640x480+8+200')
+mainWindow['padx'] = 8
 
 label = tkinter.Label(mainWindow, text="Tkinter Grid Demo")
 label.grid(row=0, column=0, columnspan=5)
 
-mainWindow.columnconfigure(0, weight=1)
+mainWindow.columnconfigure(0, weight=100)
 mainWindow.columnconfigure(1, weight=1)
-mainWindow.columnconfigure(2, weight=3)
-mainWindow.columnconfigure(3, weight=3)
-mainWindow.columnconfigure(4, weight=3)
+mainWindow.columnconfigure(2, weight=1000)
+mainWindow.columnconfigure(3, weight=600)
+mainWindow.columnconfigure(4, weight=1000)
 mainWindow.rowconfigure(0, weight=1)
 mainWindow.rowconfigure(1, weight=10)
 mainWindow.rowconfigure(2, weight=1)
@@ -82,15 +83,16 @@ monthLabel.grid(row=0, column=1, sticky='w')
 yearLabel.grid(row=0, column=2, sticky='w')
 # Date spinners
 daySpin = tkinter.Spinbox(dateFrame, width=5, from_=1, to=31)
-month_values = []
-for m in calendar.month_name:
-    if m != '':
-        month_values.append(m)
-monthSpin = tkinter.Spinbox(dateFrame, width=5, values=month_values)
+monthSpin = tkinter.Spinbox(dateFrame, width=5, values=list(calendar.month_abbr)[1:13])
 yearSpin = tkinter.Spinbox(dateFrame, width=5, from_=2000, to=2099)
 daySpin.grid(row=1, column=0)
 monthSpin.grid(row=1, column=1)
 yearSpin.grid(row=1, column=2)
 
+# Buttons
+okButton = tkinter.Button(mainWindow, text="OK")
+cancelButton = tkinter.Button(mainWindow, text="Cancel", command=mainWindow.destroy)
+okButton.grid(row=4, column=3, sticky='e')
+cancelButton.grid(row=4, column=4, sticky='w')
 
 mainWindow.mainloop()
