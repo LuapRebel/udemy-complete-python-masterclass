@@ -6,6 +6,7 @@ except ImportError:
     import Tkinter as tk
 # =================================================================================
 
+
 def load_images(card_images):
     suits = ['heart', 'club', 'diamond', 'spade']
     face_cards = ['jack', 'queen', 'king']
@@ -28,7 +29,7 @@ def load_images(card_images):
             card_images.append((10, image,))
 
 
-def deal_card(frame):
+def _deal_card(frame):
     # pop the next card off the top of the deck
     next_card = deck.pop(0)
     deck.append(next_card)
@@ -59,7 +60,7 @@ def score_hand(hand):
 def deal_dealer():
     dealer_score = score_hand(dealer_hand)
     while 0 < dealer_score < 17:
-        dealer_hand.append(deal_card(dealer_card_frame))
+        dealer_hand.append(_deal_card(dealer_card_frame))
         dealer_score = score_hand(dealer_hand)
         dealer_score_label.set(dealer_score)
 
@@ -75,7 +76,7 @@ def deal_dealer():
 
 
 def deal_player():
-    player_hand.append(deal_card(player_card_frame))
+    player_hand.append(_deal_card(player_card_frame))
     player_score = score_hand(player_hand)
 
     player_score_label.set(player_score)
@@ -99,6 +100,13 @@ def deal_player():
     # print(locals())
 
 
+def initial_deal():
+    deal_player()
+    dealer_hand.append(_deal_card(dealer_card_frame))
+    dealer_score_label.set(score_hand(dealer_hand))
+    deal_player()
+
+
 def new_game():
     global dealer_card_frame
     global player_card_frame
@@ -118,10 +126,7 @@ def new_game():
     dealer_hand = []
     player_hand = []
 
-    deal_player()
-    dealer_hand.append(deal_card(dealer_card_frame))
-    dealer_score_label.set(score_hand(dealer_hand))
-    deal_player()
+    initial_deal()
 
 
 def shuffle():
@@ -129,7 +134,13 @@ def shuffle():
     random.shuffle(deck)
 
 
+def play():
+    initial_deal()
+    root.mainloop()
+
+
 # ===================================================================================
+
 root = tk.Tk()
 root.title("Black Jack")
 root.geometry("640x480")
@@ -162,10 +173,10 @@ player_card_frame.grid(row=2, column=1, sticky='ew', rowspan=2)
 button_frame = tk.Frame(root)
 button_frame.grid(row=3, column=0, columnspan=3, sticky='w')
 
-dealer_button = tk.Button(button_frame, text="Dealer", command=deal_dealer)
+dealer_button = tk.Button(button_frame, text="Stand", command=deal_dealer)
 dealer_button.grid(row=0, column=0)
 
-player_button = tk.Button(button_frame, text="Player", command=deal_player)
+player_button = tk.Button(button_frame, text="Hit Me!", command=deal_player)
 player_button.grid(row=0, column=1)
 
 new_game_button = tk.Button(button_frame, text="New Game", command=new_game)
@@ -181,6 +192,10 @@ load_images(cards)
 # Create a new deck of cards and shuffle them
 deck = list(cards) + list(cards) + list(cards)
 shuffle()
-new_game()
 
-root.mainloop()
+# Create the lists to store dealer's and player's hands
+dealer_hand = []
+player_hand = []
+
+if __name__ == "__main__":
+    play()
