@@ -53,7 +53,7 @@ print(kenwood.on)
 kenwood.switch_off()
 print(kenwood.on)
 
-print("*" * 80)
+print("-" * 80)
 kenwood.power = 1.5
 print(kenwood.power)
 # print(hamilton.power)
