@@ -1,30 +1,30 @@
-from player import Player
-# import player as pl
+from enemy import Enemy, Troll, Vampyre
 
-tim = Player("Tim")
+ugly_troll = Troll("Pug")
+print(ugly_troll)
+ugly_troll.take_damage(4)
+print(ugly_troll)
 
-print(tim.name)
-print(tim.lives)
-tim.lives -= 1
-print(tim)
+another_troll = Troll("Ug")
+print(another_troll)
 
-tim.lives -= 1
-print(tim)
+brother = Troll("Urg")
+print(brother)
 
-tim.lives -= 1
-print(tim)
+# ugly_troll.grunt()
+# another_troll.grunt()
+# brother.grunt()
 
-tim.lives -= 1
-print(tim)
+nosferatu = Vampyre("Nosferatu")
+print(nosferatu)
+nosferatu.take_damage(4)
+print(nosferatu)
 
-tim.lives = 9
-print(tim)
+print("-" * 40)
 
-tim.level = 2
-print(tim)
+another_troll.take_damage(30)
+print(another_troll)
 
-tim.level += 5
-print(tim)
-
-tim.level -= 1
-print(tim)
+while nosferatu.alive:
+    nosferatu.take_damage(1)
+    print(nosferatu)
