@@ -1,8 +1,0 @@
-.gitignore
-pycharm-community-2016.3.2/
-.idea/
-PythonPrograms/Blackjack/cards_png/
-PythonPrograms/Blackjack/cards_ppm/
-PythonPrograms/Blackjack/SVG-cards-2.0.1/
-PythonPrograms/Game/__pycache__/player.cpython-36.pyc
-PythonPrograms/Game/__pycache__/enemy.cpython-36.pyc
