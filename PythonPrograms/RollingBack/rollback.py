@@ -77,7 +77,7 @@ if __name__ == '__main__':
     terry = Account("TerryJ")
     graham = Account("Graham", 9000)
     eric = Account("Eric", 7000)
-    michael = Account("Michael", 500)
+    michael = Account("Michael")
     terryG = Account("TerryG")
 
     db.close()
